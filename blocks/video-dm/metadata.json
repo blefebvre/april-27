@@ -1,0 +1,38 @@
+{
+  "variantName": "video-dm",
+  "baseBlock": "video",
+  "version": "1.0.0",
+  "created": "2026-04-29T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://aem-dynamicmedia-demo--dm--hlxsites.aem.page/travel-hospitality/wknd-trvl-home",
+    "originPage": "travel hospitality homepage",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "dynamic-media-video",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "single video link",
+    "buttonCount": 0,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "Dynamic Media video embeds",
+      "mp4 video links",
+      "AEM Cloud asset videos via /play endpoint"
+    ],
+    "notSuitableFor": [
+      "youtube/vimeo embeds (use embed)",
+      "live-streams"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/travel-hospitality/wknd-trvl-home"],
+    "reuseCount": 1,
+    "lastUsed": "2026-04-29T00:00:00.000Z"
+  }
+}

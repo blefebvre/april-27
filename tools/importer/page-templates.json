@@ -1,0 +1,41 @@
+{
+  "metadata": {
+    "projectType": "doc"
+  },
+  "templates": [
+    {
+      "name": "travel-home",
+      "urls": [
+        "https://aem-dynamicmedia-demo--dm--hlxsites.aem.page/travel-hospitality/wknd-trvl-home"
+      ],
+      "description": "WKND travel and hospitality homepage with hero banner, destinations, and promotional sections",
+      "blocks": [
+        {
+          "name": "carousel-travel",
+          "instances": [".carousel.summit-carousel.block"]
+        },
+        {
+          "name": "cards-tours",
+          "instances": [".cards.tours.block"]
+        },
+        {
+          "name": "embed-hotspot",
+          "instances": [".hotspot.block"]
+        },
+        {
+          "name": "video-dm",
+          "instances": [".embed.dm-videoplayer.block"]
+        },
+        {
+          "name": "cards-media",
+          "instances": [".cards.block:not(.tours)"]
+        },
+        {
+          "name": "section-highlight",
+          "instances": [".section.highlight"],
+          "section": "highlight"
+        }
+      ]
+    }
+  ]
+}

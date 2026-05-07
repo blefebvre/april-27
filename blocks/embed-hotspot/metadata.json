@@ -1,0 +1,38 @@
+{
+  "variantName": "embed-hotspot",
+  "baseBlock": "embed",
+  "version": "1.0.0",
+  "created": "2026-04-29T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://aem-dynamicmedia-demo--dm--hlxsites.aem.page/travel-hospitality/wknd-trvl-home",
+    "originPage": "travel hospitality homepage",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "interactive-hotspot-map",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "main image + clickable video hotspots",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "interactive imagery with video hotspots",
+      "Dynamic Media interactive experiences",
+      "product spotlight images"
+    ],
+    "notSuitableFor": [
+      "simple embeds",
+      "youtube/vimeo embeds (use embed instead)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/travel-hospitality/wknd-trvl-home"],
+    "reuseCount": 1,
+    "lastUsed": "2026-04-29T00:00:00.000Z"
+  }
+}

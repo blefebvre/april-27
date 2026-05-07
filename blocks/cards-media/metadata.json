@@ -1,0 +1,38 @@
+{
+  "variantName": "cards-media",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-04-29T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://aem-dynamicmedia-demo--dm--hlxsites.aem.page/travel-hospitality/wknd-trvl-home",
+    "originPage": "travel hospitality homepage",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "media-showcase",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "image + short caption",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "image gallery grids",
+      "Dynamic Media transformation showcases",
+      "simple image + caption layouts"
+    ],
+    "notSuitableFor": [
+      "product cards with CTAs",
+      "content-heavy cards"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/travel-hospitality/wknd-trvl-home"],
+    "reuseCount": 1,
+    "lastUsed": "2026-04-29T00:00:00.000Z"
+  }
+}

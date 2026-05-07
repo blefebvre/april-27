@@ -12,6 +12,132 @@ import {
   loadCSS,
 } from './aem.js';
 
+// --- BEGIN DM/Scene7 auto-block (excat-generated) ---
+
+const DM_BREAKPOINTS = [
+  { media: '(min-width: 600px)', width: 2000 }, // desktop
+  { width: 750 }, // mobile / fallback (no media)
+];
+
+function detectDynamicMediaUrl(urlStr) {
+  let u;
+  try { u = new URL(urlStr, 'https://x/'); } catch { return false; }
+  if (u.hostname.endsWith('.scene7.com') && u.pathname.startsWith('/is/image/')) {
+    return 'scene7';
+  }
+  if (/^delivery-p\d+-e\d+\.adobeaemcloud\.com$/.test(u.hostname)
+      && u.pathname.startsWith('/adobe/assets/urn:')) {
+    return 'dm-openapi';
+  }
+  return false;
+}
+
+function buildScene7Rendition(src, { width, format }) {
+  const url = new URL(src);
+  url.searchParams.set('fmt', format);
+  url.searchParams.set('wid', String(width));
+  return url.toString();
+}
+
+function buildDmOpenApiRendition(src, { width }) {
+  const url = new URL(src);
+  url.searchParams.set('width', String(width));
+  return url.toString();
+}
+
+function findDmOnAnchor(a) {
+  const href = a.getAttribute('href') || '';
+  if (detectDynamicMediaUrl(href)) return { mode: 'unlinked', dmUrl: href };
+  const title = a.getAttribute('title') || '';
+  if (detectDynamicMediaUrl(title)) return { mode: 'linked', dmUrl: title };
+  return null;
+}
+
+function isUnwrappableMarkdownParagraph(anchor) {
+  const parent = anchor && anchor.parentElement;
+  return Boolean(
+    parent
+      && parent.tagName === 'P'
+      && parent.children.length === 1
+      && parent.firstElementChild === anchor,
+  );
+}
+
+const EMPTY_ALT_SENTINEL = 'Image without alt text';
+
+function linkTextToAlt(linkText) {
+  return linkText === EMPTY_ALT_SENTINEL ? '' : linkText;
+}
+
+function appendSource(picture, { type, srcset, media }) {
+  const source = document.createElement('source');
+  if (type) source.type = type;
+  source.srcset = srcset;
+  if (media) source.setAttribute('media', media);
+  picture.append(source);
+}
+
+function renderScene7Picture(src, alt) {
+  const picture = document.createElement('picture');
+  DM_BREAKPOINTS.forEach((bp) => appendSource(picture, {
+    type: 'image/webp',
+    srcset: buildScene7Rendition(src, { width: bp.width, format: 'webp' }),
+    media: bp.media,
+  }));
+  DM_BREAKPOINTS.forEach((bp) => appendSource(picture, {
+    type: 'image/jpeg',
+    srcset: buildScene7Rendition(src, { width: bp.width, format: 'jpg' }),
+    media: bp.media,
+  }));
+  const img = document.createElement('img');
+  img.src = buildScene7Rendition(src, { width: 750, format: 'jpg' });
+  img.alt = alt;
+  img.loading = 'lazy';
+  picture.append(img);
+  return picture;
+}
+
+function renderDmOpenApiPicture(src, alt) {
+  const picture = document.createElement('picture');
+  DM_BREAKPOINTS.forEach((bp) => appendSource(picture, {
+    srcset: buildDmOpenApiRendition(src, { width: bp.width }),
+    media: bp.media,
+  }));
+  const img = document.createElement('img');
+  img.src = buildDmOpenApiRendition(src, { width: 750 });
+  img.alt = alt;
+  img.loading = 'lazy';
+  picture.append(img);
+  return picture;
+}
+
+function buildDynamicMediaImages(main) {
+  main.querySelectorAll('a').forEach((a) => {
+    const match = findDmOnAnchor(a);
+    if (!match) return;
+
+    const { mode, dmUrl } = match;
+    const alt = linkTextToAlt(a.textContent.trim());
+    const picture = detectDynamicMediaUrl(dmUrl) === 'scene7'
+      ? renderScene7Picture(dmUrl, alt)
+      : renderDmOpenApiPicture(dmUrl, alt);
+
+    if (mode === 'linked') {
+      a.removeAttribute('title');
+      a.replaceChildren(picture);
+      return;
+    }
+
+    if (isUnwrappableMarkdownParagraph(a)) {
+      a.parentElement.replaceWith(picture);
+    } else {
+      a.replaceWith(picture);
+    }
+  });
+}
+
+// --- END DM/Scene7 auto-block ---
+
 /**
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
@@ -68,6 +194,7 @@ function buildAutoBlocks(main) {
     }
 
     buildHeroBlock(main);
+    buildDynamicMediaImages(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);

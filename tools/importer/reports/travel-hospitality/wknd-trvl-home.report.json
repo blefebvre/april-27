@@ -1,0 +1,18 @@
+{
+  "status": "success",
+  "url": "https://aem-dynamicmedia-demo--dm--hlxsites.aem.page/travel-hospitality/wknd-trvl-home",
+  "path": "travel-hospitality/wknd-trvl-home",
+  "timestamp": "2026-04-29T18:12:15.406Z",
+  "title": "WKND Travel",
+  "template": "travel-home",
+  "blocks": [
+    "carousel-travel",
+    "cards-tours",
+    "embed-hotspot",
+    "video-dm",
+    "cards-media",
+    "cards-media",
+    "cards-media",
+    "section-highlight"
+  ]
+}
